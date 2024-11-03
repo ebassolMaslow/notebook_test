@@ -1,0 +1,270 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Записная книжка",
+        "contact": {
+            "name": "Александр Масликов",
+            "email": "aleksandrmaslikov197@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/v1/sketchpads": {
+            "get": {
+                "summary": "Показывает список всех контактов",
+                "description": "Возвращает перечень записной книжки",
+                "operationId": "0de424e0152528f274c360f75ac4f6e3",
+                "responses": {
+                    "200": {
+                        "description": "Перечень записной книжки",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Контакт в записной книжке не найден",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Добавить новый контакт в записную книжку",
+                "description": "Создаёт новый контакт в записной книжке",
+                "operationId": "7ded44046a978c0cedfa460e0ce8b7b3",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "FIO",
+                                    "telephone",
+                                    "email"
+                                ],
+                                "properties": {
+                                    "FIO": {
+                                        "type": "string",
+                                        "maxLength": 200,
+                                        "example": "Иван Иванов"
+                                    },
+                                    "company": {
+                                        "type": "string",
+                                        "maxLength": 50,
+                                        "example": "ООО \"Ромашка\""
+                                    },
+                                    "telephone": {
+                                        "type": "string",
+                                        "maxLength": 20,
+                                        "example": "+7 (123) 456-78-90"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "maxLength": 100,
+                                        "example": "example@mail.com"
+                                    },
+                                    "date_of_birth": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "1990-01-01"
+                                    },
+                                    "photo": {
+                                        "type": "string",
+                                        "maxLength": 100,
+                                        "example": "filename.jpg"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Запись в записной книжке успешно создана",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Запись успешно создана"
+                                        },
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "FIO": {
+                                            "type": "string",
+                                            "example": "Иван Иванов"
+                                        },
+                                        "company": {
+                                            "type": "string",
+                                            "example": "ООО \"Ромашка\""
+                                        },
+                                        "telephone": {
+                                            "type": "string",
+                                            "example": "+7 (123) 456-78-90"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "example@mail.com"
+                                        },
+                                        "date_of_birth": {
+                                            "type": "string",
+                                            "example": "1990-01-01"
+                                        },
+                                        "photo": {
+                                            "type": "string",
+                                            "example": "filename.jpg"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/sketchpads/{sketchpad}": {
+            "get": {
+                "summary": "Получить запись по идентификатору",
+                "description": "Возвращает записную книжку по идентификатору",
+                "operationId": "dd03dcabf7b5434b3b6c4c904c7b2514",
+                "parameters": [
+                    {
+                        "name": "sketchpad",
+                        "in": "path",
+                        "description": "ID записной книжки",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Запись найдена"
+                    },
+                    "404": {
+                        "description": "Контакт не найден"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Удалить запись по идентификатору",
+                "description": "Удаляет существующую записную книжку",
+                "operationId": "bad20ab6f921995a053a79d6349ab506",
+                "parameters": [
+                    {
+                        "name": "sketchpad",
+                        "in": "path",
+                        "description": "ID записной книжки",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Запись успешно удалена"
+                    },
+                    "404": {
+                        "description": "Запись не найдена"
+                    }
+                }
+            },
+            "patch": {
+                "summary": "Обновить запись по идентификатору",
+                "description": "Обновляет существующего контакта в записной книжке",
+                "operationId": "305cc972c636cf234fd19d5ee35b9be2",
+                "parameters": [
+                    {
+                        "name": "sketchpad",
+                        "in": "path",
+                        "description": "ID записной книжки",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "FIO": {
+                                        "type": "string",
+                                        "example": "Иван Иванов"
+                                    },
+                                    "company": {
+                                        "type": "string",
+                                        "example": "ООО \"Ромашка\""
+                                    },
+                                    "telephone": {
+                                        "type": "string",
+                                        "example": "+7 (123) 456-78-90"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "example@mail.com"
+                                    },
+                                    "date_of_birth": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "1990-01-01"
+                                    },
+                                    "photo": {
+                                        "type": "string",
+                                        "example": "filename.jpg"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Запись успешно обновлена",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Запись успешно обновлена"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Запись не найдена"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "parameters": {
+            "Sketchpad": {
+                "name": "Sketchpad",
+                "in": "path",
+                "description": "Первичный ключ"
+            }
+        }
+    }
+}
